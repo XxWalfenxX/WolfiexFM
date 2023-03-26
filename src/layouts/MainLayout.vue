@@ -112,9 +112,3 @@ export default defineComponent({
   },
 });
 </script>
-<style>
-.titleLink:link {
-  color: white;
-  text-decoration: none;
-}
-</style>

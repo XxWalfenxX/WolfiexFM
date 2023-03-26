@@ -2,3 +2,18 @@
 --q-primary {
   color: #ff913e;
 }
+.titleLink:link {
+  color: white;
+  text-decoration: none;
+}
+.titleLink:visited {
+  color: white;
+}
+
+.titleLink:hover {
+  color: white;
+}
+
+.titleLink:active {
+  color: white;
+}
