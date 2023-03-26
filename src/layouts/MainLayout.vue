@@ -82,7 +82,6 @@ import { defineComponent, ref } from "vue";
 import signout from "src/firebase/firebase-signout";
 import { useRouter } from "vue-router";
 import { useQuasar } from "quasar";
-
 export default defineComponent({
   name: "MainLayout",
 

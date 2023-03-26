@@ -17,7 +17,7 @@
           </div>
         </q-form>
         <q-form
-          @submit="cambiarImagenCuenta"
+          @submit="cambiarImagen"
           class="q-gutter-md"
           enctype="multipart/form-data"
         >
@@ -51,48 +51,22 @@
   </div>
 </template>
 <script>
-import { storage } from "src/firebase/index";
 import { useQuasar } from "quasar";
 import { ref as refvue } from "vue";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { getAuth, updateProfile } from "firebase/auth";
+import cambiarImagenCuenta from "src/firebase/firebase-updateImg";
 
 export default {
   setup() {
     const $q = useQuasar();
     const user = $q.localStorage.getItem("user");
-    const auth = getAuth();
 
     return {
       // ACTUALIZAR IMAGEN DEL USUARIO
       file: refvue(null),
       name: refvue(null),
 
-      cambiarImagenCuenta(evt) {
-        const formData = new FormData(evt.target);
-        const imgRef = "/user-img/" + user.email;
-        var imgURL = "";
-
-        for (const [name, value] of formData.entries()) {
-          if (value.name.length > 0) {
-            // Subir fichero
-            uploadBytes(ref(storage, imgRef), value).then((snapshot) => {
-              console.log("La imagen subida a Firebase");
-              // Conseguir link imagen
-              getDownloadURL(snapshot.ref).then((downloadURL) => {
-                imgURL = downloadURL;
-                console.log("url de la imagen", imgURL);
-
-                // Cambiar imagen en la cuenta
-                updateProfile(auth.currentUser, {
-                  photoURL: imgURL,
-                }).then(() => {
-                  console.log("Foto de perfil actualizada");
-                });
-              });
-            });
-          }
-        }
+      cambiarImagen(evt) {
+        cambiarImagenCuenta(evt, user);
       },
     };
   },

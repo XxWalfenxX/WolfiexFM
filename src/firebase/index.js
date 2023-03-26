@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { LocalStorage } from "quasar";
+import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
   apiKey: "AIzaSyATig1K5vE8vkcOYFJwm7xbI6AlRyltl2M",
@@ -15,6 +16,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
+export const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 export const storage = getStorage(app);
 
