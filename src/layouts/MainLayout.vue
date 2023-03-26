@@ -4,7 +4,9 @@
       <q-toolbar>
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
 
-        <q-toolbar-title> WolfiexFM </q-toolbar-title>
+        <q-toolbar-title>
+          <router-link to="/" class="titleLink">WolfiexFM</router-link>
+        </q-toolbar-title>
       </q-toolbar>
     </q-header>
 
@@ -82,6 +84,7 @@ import { defineComponent, ref } from "vue";
 import signout from "src/firebase/firebase-signout";
 import { useRouter } from "vue-router";
 import { useQuasar } from "quasar";
+
 export default defineComponent({
   name: "MainLayout",
 
@@ -96,7 +99,6 @@ export default defineComponent({
       });
     };
 
-    console.log(user);
     return {
       avatar: user.photoURL,
       name: user.displayName,
@@ -110,3 +112,9 @@ export default defineComponent({
   },
 });
 </script>
+<style>
+.titleLink:link {
+  color: white;
+  text-decoration: none;
+}
+</style>

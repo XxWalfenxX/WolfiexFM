@@ -3,12 +3,38 @@
     <div class="row justify-center">
       <div class="col-md-5 col-8">
         <h5>Actualizar información de tu cuenta</h5>
-        <q-form @submit="cambiarNombreUsuario" class="q-gutter-md">
+        <q-form @submit="cambiarNombre" class="q-gutter-md">
           <p>Cambiar nombre de usuario</p>
           <div class="flex items-center">
-            <q-input name="name" v-model="name" label="Nombre" filled clearable>
-              <template v-slot:prepend>
-                <q-icon name="account_circle" />
+            <q-input
+              name="name"
+              v-model="userName"
+              label="Nombre"
+              filled
+              clearable
+            >
+            </q-input>
+            <div class="q-ma-sm">
+              <q-btn label="Cambiar" type="submit" color="primary" />
+            </div>
+          </div>
+        </q-form>
+        <q-form @submit="cambiarPasswd" class="q-gutter-md">
+          <p>Cambiar contraseña</p>
+          <div class="flex items-center">
+            <q-input
+              name="name"
+              v-model="passwd"
+              label="Contraseña"
+              :type="isPwd ? 'password' : 'text'"
+              filled
+            >
+              <template v-slot:append>
+                <q-icon
+                  :name="isPwd ? 'visibility_off' : 'visibility'"
+                  class="cursor-pointer"
+                  @click="isPwd = !isPwd"
+                />
               </template>
             </q-input>
             <div class="q-ma-sm">
@@ -52,8 +78,10 @@
 </template>
 <script>
 import { useQuasar } from "quasar";
-import { ref as refvue } from "vue";
-import cambiarImagenCuenta from "src/firebase/firebase-updateImg";
+import { ref } from "vue";
+import cambiarImagenCuenta from "src/firebase/ActualizarImagen";
+import cambiarNombreUsuario from "src/firebase/ActualizarUsername";
+import actualizarPasswd from "src/firebase/ActualizarPasswd";
 
 export default {
   setup() {
@@ -61,12 +89,26 @@ export default {
     const user = $q.localStorage.getItem("user");
 
     return {
-      // ACTUALIZAR IMAGEN DEL USUARIO
-      file: refvue(null),
-      name: refvue(null),
+      file: ref(null),
+      userName: ref(null),
+      passwd: ref(null),
+      isPwd: ref(true),
+
+      reset() {
+        this.file.value.resetValidation();
+        this.userName.value.resetValidation();
+      },
 
       cambiarImagen(evt) {
         cambiarImagenCuenta(evt, user);
+      },
+
+      cambiarNombre(evt) {
+        cambiarNombreUsuario(evt.target[0].value);
+      },
+
+      cambiarPasswd(evt) {
+        actualizarPasswd(evt.target[0].value);
       },
     };
   },

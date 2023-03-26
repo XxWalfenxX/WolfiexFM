@@ -1,6 +1,7 @@
 import { auth } from "./index.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Loading, Notify } from "quasar";
+
 const login = (data) => {
   return new Promise((resolve, reject) => {
     Loading.show();

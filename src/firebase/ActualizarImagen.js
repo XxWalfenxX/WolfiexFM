@@ -1,7 +1,8 @@
 import { storage } from "src/firebase/index";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getAuth, updateProfile, onAuthStateChanged } from "firebase/auth";
-import { LocalStorage } from "quasar";
+import { LocalStorage, Notify } from "quasar";
+
 const cambiarImagenCuenta = (evt, user) => {
   const auth = getAuth();
   const formData = new FormData(evt.target);
@@ -23,6 +24,11 @@ const cambiarImagenCuenta = (evt, user) => {
               if (user) {
                 LocalStorage.set("user", user);
               }
+            });
+            Notify.create({
+              type: "positive",
+              position: "bottom-right",
+              message: "Se ha actulizado la foto de perfil",
             });
           });
         });
