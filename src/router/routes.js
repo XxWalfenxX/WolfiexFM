@@ -17,7 +17,16 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     children: [
       { path: "", component: () => import("pages/IndexPage.vue") },
-      { path: "/mi-cuenta", component: () => import("pages/MiCuenta.vue") },
+      {
+        path: "/mi-cuenta",
+        component: () => import("pages/MiCuenta.vue"),
+      },
+      {
+        path: "/radio/:nombre",
+        name: "ReproducirRadio",
+        component: () => import("pages/ReproducirRadio.vue"),
+        props: true,
+      },
     ],
     meta: { auth: true },
   },

@@ -13,6 +13,7 @@ const getRadios = new Promise(async (resolve, reject) => {
   let listaRadios = [];
   querySnapshot.forEach((doc) => {
     const radios = {
+      id: doc.id,
       nombre: doc.data().nombre,
       streamURL: doc.data().streamURL,
       logoURL: doc.data().logoURL,

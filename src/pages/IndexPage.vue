@@ -1,15 +1,21 @@
 <template>
   <div class="q-pa-md">
-    <div class="row justify-center">
-      <div class="col-3 q-gutter-md" v-if="!state.cargandoRadios">
+    <h3>Radios Nacionales</h3>
+    <q-scroll-area style="height: 19rem; max-width: 100vw">
+      <div
+        class="row items-start lista q-gutter-md"
+        v-if="!state.cargandoRadios"
+      >
         <TarjetaRadio
           v-for="radio in state.listaRadios"
           :key="radio.nombre"
           v-bind="radio"
         />
       </div>
-      <div class="text-center" v-else>Cargando radios...</div>
-    </div>
+      <div class="text-center" v-else>
+        <q-spinner color="primary" size="10em" />
+      </div>
+    </q-scroll-area>
   </div>
 </template>
 
@@ -34,7 +40,20 @@ export default defineComponent({
       state.cargandoRadios = false;
     });
 
-    return { state };
+    return {
+      state,
+    };
   },
 });
 </script>
+<style>
+.lista {
+  overflow: auto;
+  flex-wrap: nowrap !important;
+}
+
+.q-pa-lg-m {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+</style>
