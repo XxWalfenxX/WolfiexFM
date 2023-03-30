@@ -22,10 +22,9 @@ const routes = [
         component: () => import("pages/MiCuenta.vue"),
       },
       {
-        path: "/radio/:nombre",
+        path: "/reproducir-radio",
         name: "ReproducirRadio",
         component: () => import("pages/ReproducirRadio.vue"),
-        props: true,
       },
     ],
     meta: { auth: true },

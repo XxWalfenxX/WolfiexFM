@@ -1,6 +1,6 @@
 <template>
   <q-card class="my-card" flat bordered>
-    <q-btn :to="{ name: 'ReproducirRadio', params: { nombre: id } }">
+    <q-btn @click="guardarProps">
       <img :src="logoURL" style="margin: 0; height: 210px" />
     </q-btn>
 
@@ -11,6 +11,8 @@
 </template>
 <script>
 import { defineComponent } from "vue";
+import { useRouter } from "vue-router";
+import { LocalStorage } from "quasar";
 
 export default defineComponent({
   name: "TarjetaRadio",
@@ -31,6 +33,21 @@ export default defineComponent({
       type: String,
       default: "",
     },
+  },
+  setup(props) {
+    const router = useRouter();
+    return {
+      guardarProps() {
+        const propsGuardados = {
+          id: props.id,
+          nombre: props.nombre,
+          logoURL: props.logoURL,
+          streamURL: props.streamURL,
+        };
+        LocalStorage.set("radioActual", propsGuardados);
+        router.push("/reproducir-radio");
+      },
+    };
   },
 });
 </script>
